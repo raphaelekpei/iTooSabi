@@ -32,7 +32,7 @@ public class SendinblueEmailServiceImpl implements EmailService {
         try {
             transactionalEmailsApi.sendTransacEmail(sendSmtpEmail);
         } catch (ApiException ex) {
-            throw new EmailSendingException("Failed to send email: " + ex.getMessage());
+            throw new EmailSendingException("Failed to send email");
             // catches ApiException and re-throws it as an EmailSendingException.
         }
     }
