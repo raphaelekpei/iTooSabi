@@ -21,7 +21,6 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RegisterUserResponse> registerUser(@RequestBody RegisterUserRequest registerUserRequest) throws IOException {
         return ResponseEntity.ok(userService.registerUser(registerUserRequest));
     }
