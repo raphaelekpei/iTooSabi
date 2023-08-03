@@ -18,20 +18,4 @@ public class VerificationController {
     public void verifyCode(@RequestParam("userId") Long userId, @RequestParam("code") String code) {
         verificationService.verifyCode(userId, code);
     }
-
-//    @PostMapping("/jwt-auth-token")
-//    public void verifyToken(@RequestParam("userId") Long userId, @RequestParam("code") String code) {
-//        jwtService.verifyToken(userId, code);
-//
-//        if (!user.getVerificat            throw new InvalidVerificationTokenException("Invalid verification token");
-//        ionToken().equals(loginUserRequest.getVerificationToken()))
-//        existingUser.get().setVerified(true);
-//        userRepository.save(existingUser.get());
-//        return LoginUserResponse.builder()
-//                .message("User logged in successfully")
-//                .build();
-//    }
-
-
-
 }
