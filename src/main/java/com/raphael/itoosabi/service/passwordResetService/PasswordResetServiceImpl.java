@@ -47,12 +47,6 @@ public class PasswordResetServiceImpl implements PasswordResetService{
         // You can use UUID or any other method to generate a secure token
     }
 
-
-    @Override
-    public PasswordResetResponse passwordReset(PasswordResetRequest passwordResetRequest) {
-        return null;
-    }
-
     @Override
     public PasswordResetResponse resetPassword(PasswordResetRequest passwordResetRequest) {
         return null;
