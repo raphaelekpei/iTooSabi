@@ -1,10 +1,9 @@
-package com.raphael.itoosabi.service.impl;
+package com.raphael.itoosabi.service;
 
 import com.raphael.itoosabi.data.models.User;
 import com.raphael.itoosabi.data.repository.UserRepository;
 import com.raphael.itoosabi.exceptions.InvalidVerificationException;
 import com.raphael.itoosabi.exceptions.UserNotFoundException;
-import com.raphael.itoosabi.service.VerificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
