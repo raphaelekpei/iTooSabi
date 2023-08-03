@@ -11,5 +11,4 @@ public class SmsRequest {
 
     private String to;
     private String message;
-
 }
