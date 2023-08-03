@@ -1,4 +1,4 @@
-package com.raphael.itoosabi.service.impl;
+package com.raphael.itoosabi.service;
 
 
 
@@ -53,13 +53,15 @@ public class PostServiceImpl implements PostService {
     @Override
     public GetPostsResponse getAllPost(int pageNo, int pageSize) {
         // TODO: Create a pageable object to define the requested page number and size
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
         // TODO: Retrieve a page of Post entities from the repository based on the pageable object
-        Page<Post> posts = postRepository.findAll(pageable);
         // TODO: Extract all the content from the page
+        // TODO: Map each Post entity to a GetPostResponse and collect them into a list
+        // TODO: Create & return a CustomPostResponse object to hold the paginated data
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Post> posts = postRepository.findAll(pageable);
         List<Post> postList = posts.getContent();
 
-        // TODO: Map each Post entity to a GetPostResponse and collect them into a list
         List<GetPostResponse> getPostResponseList = postList.stream()
                 .map(post -> GetPostResponse.builder()
                         .title(post.getTitle())
@@ -67,7 +69,6 @@ public class PostServiceImpl implements PostService {
                         .build())
                 .collect(Collectors.toList());
 
-        // TODO: Create & return a CustomPostResponse object to hold the paginated data
         return GetPostsResponse.builder()
                 .content(getPostResponseList)
                 .pageNo(posts.getNumber())  // The pageable object gives you all these data so that you don't have to write any logic to implement any of them
@@ -81,12 +82,13 @@ public class PostServiceImpl implements PostService {
     @Override
     public UpdatePostResponse updatePostById(UpdatePostRequest updatePostRequest, Long postId) {
         // TODO: Retrieve the existing post from the repository
-        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post could not be found"));
         // TODO: Update the post with the new values
-        modelMapper.map(updatePostRequest, post);
         // TODO: Save the updated post
-        Post updatedPost = postRepository.save(post);
         // TODO: Create and return the response
+
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException("Post could not be found"));
+        modelMapper.map(updatePostRequest, post);
+        Post updatedPost = postRepository.save(post);
         return UpdatePostResponse.builder()
                 .title(updatedPost.getTitle())
                 .content(updatedPost.getContent())
