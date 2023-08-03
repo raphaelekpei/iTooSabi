@@ -44,10 +44,18 @@ public class UserServiceImpl implements UserService {
 
         Optional<User> existingUser = userRepository.findByEmail(registerUserRequest.getEmail());
         if (existingUser.isPresent()) throw new EmailAlreadyTakenException("Email already taken");
-        User newUser = User.builder().build();
+        User newUser = User
+                .builder()
+                .firstName(registerUserRequest.getFirstName())
+                .lastName(registerUserRequest.getLastName())
+                .phoneNumber(registerUserRequest.getPhoneNumber())
+                .email(registerUserRequest.getEmail())
+                .password(registerUserRequest.getPassword())
+                .build();
 
 
         // TODO: Upload photo & set the user's photo url
+//        if (registerUserRequest.getPhoto().isEmpty()) newUser.setUploadedPhotoUrl(null);
         String photoUrl = cloudService.uploadPhoto(registerUserRequest.getPhoto());
         newUser.setUploadedPhotoUrl(photoUrl);
 
@@ -70,6 +78,7 @@ public class UserServiceImpl implements UserService {
 
 
         // TODO: Send activation email to the user
+        // Prepare the email request
         String subject = "Welcome to i2sabi.com";
         // Load the emailTemplates as a Resource using ResourceLoader & read the content of the resource into a string using StreamUtils.copyToString
         Resource resource = resourceLoader.getResource("classpath:emailTemplates/activation.html");
@@ -78,10 +87,11 @@ public class UserServiceImpl implements UserService {
         // The classpath: prefix is used to indicate that the resource should be loaded from the classpath.
         //By using classpath:, the resource loader will look for the emailTemplates file within the classpath, allowing you to load it as a resource directly.
 
+        // Send the email
         sendinblueEmailService.sendEmail(registerUserRequest.getEmail(), subject, emailContent);
 
         // TODO: Send confirmation or welcome email to the user upon successful registration or creation of account
-        // compose the email
+        // prepare the email request
         String subject2 = "Welcome to i2sabi.com";
         Resource resource2 = resourceLoader.getResource("classpath:emailTemplates/welcome.html");
         String emailContent2 = StreamUtils.copyToString(resource2.getInputStream(), StandardCharsets.UTF_8);
@@ -107,7 +117,6 @@ public class UserServiceImpl implements UserService {
         if(existingUser.isEmpty()) throw new EmailOrPasswordConflictException("Incorrect email or password");
         User user = existingUser.get();
         if (!user.getPassword().equals(loginUserRequest.getPassword())) throw new EmailOrPasswordConflictException("Incorrect email or password");
-
 
         // TODO: Use generateTokenService to generate login token
 
