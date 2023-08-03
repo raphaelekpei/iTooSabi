@@ -12,7 +12,7 @@ import com.raphael.itoosabi.dto.response.GetCommentResponse;
 import com.raphael.itoosabi.dto.response.UpdateCommentResponse;
 import com.raphael.itoosabi.exceptions.CommentNotFoundException;
 import com.raphael.itoosabi.exceptions.PostNotFoundException;
-import com.raphael.itoosabi.service.impl.CommentServiceImpl;
+import com.raphael.itoosabi.service.CommentServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
