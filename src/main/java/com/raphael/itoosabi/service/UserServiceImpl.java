@@ -5,12 +5,12 @@ import com.raphael.itoosabi.data.repository.UserRepository;
 import com.raphael.itoosabi.dto.request.Attachment;
 import com.raphael.itoosabi.dto.request.LoginUserRequest;
 import com.raphael.itoosabi.dto.request.RegisterUserRequest;
+import com.raphael.itoosabi.dto.request.SmsRequest;
 import com.raphael.itoosabi.dto.response.LoginUserResponse;
 import com.raphael.itoosabi.dto.response.RegisterUserResponse;
 import com.raphael.itoosabi.exceptions.EmailAlreadyTakenException;
 import com.raphael.itoosabi.exceptions.EmailOrPasswordConflictException;
 import com.raphael.itoosabi.service.cloudService.CloudService;
-import com.raphael.itoosabi.service.UserService;
 import com.raphael.itoosabi.service.emailService.SendinblueEmailServiceImpl;
 import com.raphael.itoosabi.service.smsService.TwilioSmsServiceImpl;
 import lombok.AllArgsConstructor;
@@ -55,12 +55,19 @@ public class UserServiceImpl implements UserService {
         String verificationCode = RandomStringUtils.randomNumeric(6); // generates 6-digit code
         newUser.setVerificationCode(verificationCode);
 
-        // TODO: send verification code
         // TODO: Save the user to the database
         userRepository.save(newUser);
 
         // TODO: Send verification code via SMS
-        twilioSmsService.sendSms(newUser.getPhoneNumber(), "Your verification code is: " + verificationCode);
+        // Prepare SmsRequest
+        SmsRequest smsRequest = SmsRequest
+                .builder()
+                .to(registerUserRequest.getPhoneNumber())
+                .message("Your verification code is: " + verificationCode)
+                .build();
+        // Send Sms
+        twilioSmsService.sendSms(smsRequest);
+
 
         // TODO: Send activation email to the user
         String subject = "Welcome to i2sabi.com";
