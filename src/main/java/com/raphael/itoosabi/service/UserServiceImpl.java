@@ -1,4 +1,4 @@
-package com.raphael.itoosabi.service.impl;
+package com.raphael.itoosabi.service;
 
 import com.raphael.itoosabi.data.models.User;
 import com.raphael.itoosabi.data.repository.UserRepository;
@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest) throws IOException {
+
         Optional<User> existingUser = userRepository.findByEmail(registerUserRequest.getEmail());
         if (existingUser.isPresent()) throw new EmailAlreadyTakenException("Email already taken");
         User newUser = User.builder().build();
