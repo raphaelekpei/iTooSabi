@@ -22,7 +22,6 @@ public class SmsController {
 
 
     @PostMapping("/send")
-//    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> sendSms(@RequestBody SmsRequest smsRequest){
         String to = smsRequest.getTo();
         String message = smsRequest.getMessage();
