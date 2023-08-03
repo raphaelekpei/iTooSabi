@@ -2,6 +2,7 @@ package com.raphael.itoosabi.service.smsService;
 
 import com.raphael.itoosabi.dto.request.SmsRequest;
 import com.twilio.Twilio;
+import com.twilio.exception.TwilioException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import jakarta.annotation.PostConstruct;
@@ -25,24 +26,18 @@ public class TwilioSmsServiceImpl implements SmsService{
         Twilio.init(accountSid, authToken);
     }
 
+
     @Override
     public String sendSms(SmsRequest smsRequest) {
-        return Message.creator(
-                new PhoneNumber(smsRequest.getTo()),
-                new PhoneNumber(senderPhoneNumber),
-                smsRequest.getMessage()
-        ).create().getStatus().toString();
+        try {
+            return Message.creator(
+                    new PhoneNumber(smsRequest.getTo()),
+                    new PhoneNumber(senderPhoneNumber),
+                    smsRequest.getMessage()
+            ).create().getStatus().toString();
+        } catch (TwilioException e) {
+            return "Failed to send SMS: " + e.getMessage();
+        }
     }
-
-//    public void sendSms(String toPhoneNumber, String messageBody) {
-//        try {
-//            Message.creator(
-//                    new PhoneNumber(toPhoneNumber),
-//                    new PhoneNumber(fromPhoneNumber),
-//                    messageBody
-//            ).create();
-//        } catch (TwilioException e) {
-//            System.out.println("Failed to send SMS: " + e.getMessage());
-//        }
 
     }
