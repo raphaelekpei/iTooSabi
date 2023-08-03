@@ -10,7 +10,7 @@ import com.raphael.itoosabi.dto.response.GetPostResponse;
 import com.raphael.itoosabi.dto.response.GetPostsResponse;
 import com.raphael.itoosabi.dto.response.UpdatePostResponse;
 import com.raphael.itoosabi.exceptions.PostNotFoundException;
-import com.raphael.itoosabi.service.impl.PostServiceImpl;
+import com.raphael.itoosabi.service.PostServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
