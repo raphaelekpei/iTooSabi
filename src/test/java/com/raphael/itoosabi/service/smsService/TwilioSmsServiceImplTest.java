@@ -1,5 +1,6 @@
 package com.raphael.itoosabi.service.smsService;
 
+import com.raphael.itoosabi.dto.request.SmsRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,11 +20,14 @@ class TwilioSmsServiceImplTest {
         // TODO: Then I assert that the message is sent to the phone number
 
         // Given
-        String toPhoneNumber = "+2349093837491";
-        String message = "Ernest trailer fit jam person";
+        SmsRequest smsRequest = SmsRequest.
+                builder()
+                .to("+2349093837491")
+                .message("Test Message")
+                .build();
 
         // When
-        String status = twilioSmsService.sendSms(toPhoneNumber, message);
+        String status = twilioSmsService.sendSms(smsRequest);
 
         // Then
         assertThat(status).isEqualTo("queued");
