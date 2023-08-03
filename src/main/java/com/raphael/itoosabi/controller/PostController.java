@@ -26,10 +26,9 @@ public class PostController {
 
 
     @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CreatePostResponse> createPost(@RequestBody CreatePostRequest createPostRequest) {
         CreatePostResponse createdPost = postService.createPost(createPostRequest);
-        return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdPost, HttpStatus.OK);
     }
 
     @Operation(
@@ -42,8 +41,8 @@ public class PostController {
     )
     @GetMapping("/{postId}")
     public ResponseEntity<GetPostResponse> getPost(@PathVariable Long postId) {
-//        GetPostResponse savedPost = postService.getPostById(postId);
-        return ResponseEntity.ok(postService.getPostById(postId));
+        GetPostResponse savedPost = postService.getPostById(postId);
+        return new ResponseEntity<>(savedPost, HttpStatus.OK);
     }
 
     @GetMapping("/")
