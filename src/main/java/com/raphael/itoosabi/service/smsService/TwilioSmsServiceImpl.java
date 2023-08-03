@@ -1,5 +1,6 @@
 package com.raphael.itoosabi.service.smsService;
 
+import com.raphael.itoosabi.dto.request.SmsRequest;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -25,11 +26,11 @@ public class TwilioSmsServiceImpl implements SmsService{
     }
 
     @Override
-    public String sendSms(String to, String message) {
+    public String sendSms(SmsRequest smsRequest) {
         return Message.creator(
-                new PhoneNumber(to),
+                new PhoneNumber(smsRequest.getTo()),
                 new PhoneNumber(senderPhoneNumber),
-                message
+                smsRequest.getMessage()
         ).create().getStatus().toString();
     }
 
