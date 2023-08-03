@@ -23,14 +23,12 @@ public class UserController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<RegisterUserResponse> registerUser(@RequestBody RegisterUserRequest registerUserRequest) throws IOException {
-        RegisterUserResponse registerUserResponse = userService.registerUser(registerUserRequest);
-        return ResponseEntity.ok(registerUserResponse);
+        return ResponseEntity.ok(userService.registerUser(registerUserRequest));
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<LoginUserResponse> loginUser(@RequestBody LoginUserRequest loginUserRequest){
-        LoginUserResponse loginUserResponse = userService.loginUser(loginUserRequest);
-        return ResponseEntity.ok(loginUserResponse);
+        return ResponseEntity.ok(userService.loginUser(loginUserRequest));
     }
 }
